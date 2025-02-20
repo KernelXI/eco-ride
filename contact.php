@@ -2,7 +2,7 @@
 session_start();
 require '../vendor/autoload.php';
 
-$client = new MongoDB\Client("mongodb://localhost:27017");
+$client = new MongoDB\Client(getenv('MONGODB_URI')); // Utilisez l'URI de connexion de MongoDB Atlas
 $contactMessages = $client->eco_ride->contact_messages;
 
 $message = '';
@@ -42,25 +42,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="search_rides.php">Recherche de Covoiturages</a>
         </nav>
     </header>
-    <h1>Contactez-nous</h1>
+    <main>
+        <h1>Contactez-nous</h1>
+        <div>
+            <h2>Envoyer un message</h2>
+            <?php if ($message): ?>
+                <p class="success-message"><?php echo htmlspecialchars($message); ?></p>
+            <?php endif; ?>
 
-    <div>
-        <h2>Envoyer un message</h2>
-        <?php if ($message): ?>
-            <p><?php echo htmlspecialchars($message); ?></p>
-        <?php endif; ?>
+            <form action="contact.php" method="post">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
 
-        <form action="contact.php" method="post">
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
+                <label for="message">Message :</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
 
-            <label for="message">Message :</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-
-            <input type="submit" value="Envoyer">
-        </form>
-    </div>
-
+                <input type="submit" value="Envoyer">
+            </form>
+        </div>
+    </main>
     <footer>
         <p>&copy; 2025 Covoiturage. Tous droits réservés.</p>
     </footer>
