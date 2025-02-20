@@ -1,6 +1,6 @@
 <?php
 // db.php
-$host = 'localhost';
+$host = 'ip';
 $db = 'eco_ride';
 $user = 'root';
 $pass = '';
