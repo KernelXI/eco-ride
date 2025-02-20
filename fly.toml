@@ -1,1 +1,13 @@
-flyctl launch
+app = "eco-ride"
+
+[[services]]
+  http_checks = []
+  processes = ["app"]
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.http.ports]]
+    handlers = ["http"]
+    port = 8080
